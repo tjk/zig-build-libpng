@@ -27,7 +27,10 @@ pub fn build(b: *std.Build) !void {
         "-DPNG_INTEL_SSE_OPT=0",
         "-DPNG_MIPS_MSA_OPT=0",
     });
-    lib.addCSourceFiles(srcs, flags.items);
+    lib.addCSourceFiles(.{
+        .files = srcs,
+        .flags = flags.items,
+    });
 
     lib.installHeader("include/pnglibconf.h", "pnglibconf.h");
     inline for (headers) |header| {
